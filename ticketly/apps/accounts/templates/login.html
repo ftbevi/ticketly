@@ -20,7 +20,9 @@
         </div>
         <div class="text-center mt-2">
             <!-- “Reset password” como ação secundária -->
-            <a href="#" class="btn btn-outline-secondary btn-sm mt-1">Reset Password</a>
+            <a href="{% url 'reset_password' %}" class="btn btn-outline-secondary btn-sm mt-1">
+                Modificar Senha
+            </a>
         </div>
     </form>
 {% endblock %}
