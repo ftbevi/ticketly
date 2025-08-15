@@ -6,6 +6,7 @@ from django.urls import path, include
 from apps.accounts.urls import urlpatterns
 from apps.servicedesk.urls import urlpatterns as ticket_url
 
+
 admin.site.site_header = "Ticketly"
 admin.site.site_title = "Ticketly"
 
@@ -22,3 +23,4 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
+]
