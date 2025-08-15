@@ -14,6 +14,10 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "accounts.User"
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'tickets_list'
+LOGOUT_REDIRECT_URL = 'login'
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
