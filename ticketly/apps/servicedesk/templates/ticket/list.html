@@ -1,23 +1,4 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ticketly</title>
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-</head>
-
-<body>
-    <div id="content">
-        {% block content %}
-        {% endblock %}
-    </div>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/script.js' %}"></script>
-
-</body>
-
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="auth-title h4 mb-1">Olá</h2>
+{% endblock %}
