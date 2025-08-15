@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,7 +11,11 @@ SECRET_KEY = 'django-insecure-(e(g7-507%!m45eaho7xiok$y3&fmk33ud74w*a=emwc+(80ws
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = {
+    "https://localhost:8000"
+}
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -95,9 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Fortaleza'
 
 USE_I18N = True
 
@@ -107,7 +112,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+#STATIC_URL = 'static/'
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+PROJECT_FOLDER = os.path.dirname(os.path.dirname(__file__))
+STATIC_ROOT = os.path.join(
+    os.path.join(os.path.join(PROJECT_FOLDER, "resources", "static"))
+)
+STATIC_URL = "/static/"
+
+MEDIA_ROOT = os.path.join(os.path.join(os.path.join(PROJECT_FOLDER, "resources", "media")))
+MEDIA_URL = "/media/"
+COMPRESS_ROOT = STATIC_ROOT
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
