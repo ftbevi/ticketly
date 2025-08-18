@@ -11,7 +11,7 @@ class User(AbstractUser, BaseModel):
     first_name = None
     last_name = None
 
-    name = CharField(_("Name of User"), blank=True, max_length=255)
+    name = CharField(_("Name"), blank=True, max_length=255)
     role = models.CharField(
         _("role"), choices=Roles.choices, default=Roles.ASSISTANTS
     ) 

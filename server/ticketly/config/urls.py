@@ -3,7 +3,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
-from apps.accounts.urls import urlpatterns
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+
+from apps.accounts.urls.template import auth as template_auth
+from apps.accounts.urls.api import auth
 from apps.servicedesk.urls import urlpatterns as ticket_url
 
 
@@ -12,8 +19,15 @@ admin.site.site_title = "Ticketly"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include(urlpatterns)),
+    # template views
+    path('accounts/', include(template_auth.urlpatterns)),
     path('tickets/', include(ticket_url)),
+    # api views
+    path("api/auth/", include(auth.urlpatterns)),
+    # docs
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/schema/docs/", SpectacularSwaggerView.as_view(), name="swagger-ui"),
+    path("api/schema/redoc/", SpectacularRedocView.as_view(), name="redoc"),
 ]
 
 if settings.DEBUG:
