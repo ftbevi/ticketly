@@ -11,7 +11,8 @@ from drf_spectacular.views import (
 
 from apps.accounts.urls.template import auth as template_auth
 from apps.accounts.urls.api import auth
-from apps.servicedesk.urls import urlpatterns as ticket_url
+from apps.servicedesk.urls.template import ticket as template_ticket
+from apps.servicedesk.urls.api import ticket
 
 
 admin.site.site_header = "Ticketly"
@@ -21,9 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # template views
     path('accounts/', include(template_auth.urlpatterns)),
-    path('tickets/', include(ticket_url)),
+    path('tickets/', include(template_ticket.urlpatterns)),
     # api views
     path("api/auth/", include(auth.urlpatterns)),
+    path("api/tickets/", include(ticket.urlpatterns)),
     # docs
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/schema/docs/", SpectacularSwaggerView.as_view(), name="swagger-ui"),
