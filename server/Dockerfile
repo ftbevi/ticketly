@@ -13,7 +13,6 @@ RUN apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /app
-# copiar manifests primeiro pra cache
 
 COPY server/pyproject.toml server/poetry.lock* ./ 
 
