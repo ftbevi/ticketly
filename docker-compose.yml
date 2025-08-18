@@ -28,14 +28,15 @@ services:
   server:
     build:
       context: .
-      dockerfile: server/Dockerfile
+      dockerfile: ticketly/Dockerfile
     env_file: .env
     depends_on:
       db:
         condition: service_healthy
     volumes:
-      - ./resources/server/statics:/app/staticfiles
-      - ./resources/server/media:/app/media
+      - ./resources/ticketly/statics:/resources/static
+      - ./resources/ticketly/media:/resources/media
+      - ./ticketly:/app
     ports:
       - "8000:8000"
     networks:

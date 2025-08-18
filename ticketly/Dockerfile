@@ -14,13 +14,10 @@ RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /app
 
-COPY server/pyproject.toml server/poetry.lock* ./ 
+COPY ticketly/ .
 
 RUN poetry config virtualenvs.create false && \
     poetry install --only=main --no-root
-
-COPY server/run.sh .
-COPY server/ticketly/ .
 
 EXPOSE 8000
 
