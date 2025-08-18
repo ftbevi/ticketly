@@ -10,4 +10,4 @@ class Priority(models.TextChoices):
 class Status(models.TextChoices):
     OPEN = "open", "Atendentes"
     INPROGRESS = "in_progress", "Técnicos"
-    COMPLETED = "completed", "Técnicos"
+    COMPLETED = "completed", "Completos"

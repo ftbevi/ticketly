@@ -1,0 +1,67 @@
+services:
+  db:
+    image: postgres:17.1
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./resources/postgresql:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "db", "-U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ticketly_network
+
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # 1025 for smtp.
+      - 6003:8025 # 6003 for web client
+    networks:
+      - ticketly_network
+
+  server:
+    build:
+      context: .
+      dockerfile: ticketly/Dockerfile
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./resources/ticketly/statics:/resources/static
+      - ./resources/ticketly/media:/resources/media
+      - ./ticketly:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - ticketly_network
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    depends_on:
+      - server
+    volumes:
+      - static_volume:/django_static:ro
+      - media_volume:/django_media:ro
+    ports:
+      - "80:80"
+    networks:
+      - ticketly_network
+
+volumes:
+  pgdata:
+  static_volume:
+  media_volume:
+
+networks:
+  ticketly_network:
+    name: ticketly_network
+    external: false
